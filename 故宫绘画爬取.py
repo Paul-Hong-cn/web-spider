@@ -37,7 +37,8 @@ def download_image(img_url, img_name):
 def process_page(url):
     """处理单个页面的图片下载"""
     response = requests.get(url, headers=headers)
-    html = response.content.decode(response.apparent_encoding)
+    response.encoding = response.apparent_encoding
+    html = response.text
     soup = BeautifulSoup(html, 'lxml')
     content_all = soup.find_all(class_='pic')
     for content in content_all:
